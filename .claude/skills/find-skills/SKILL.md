@@ -48,15 +48,20 @@ context: fork
 現在のプロジェクトを分析して、必要そうなスキルを判断します：
 
 **分析項目:**
-- `package.json` → TypeScript/JavaScript プロジェクト → lint-fix-parallel
+- `wrangler.toml` → Cloudflare Workers プロジェクト → wrangler-tunnel, commit-ja, pr-create
+- `package.json` → TypeScript/JavaScript プロジェクト → lint-fix-parallel, local-tunnel
 - `.git/` → Git リポジトリ → commit-ja, pr-create
-- 開発環境 → local-tunnel（スマホ確認用）
 - ユーザーのクエリ内容
 
 **判断ロジック:**
 1. ユーザーが明示的にリクエストした場合は、そのスキルを優先
-2. プロジェクトタイプから推測
-3. 汎用的に便利なスキルを提案（skill-creator など）
+2. **Cloudflare Workers プロジェクトの検出**:
+   - `wrangler.toml` が存在 → `wrangler-tunnel` を推奨（`local-tunnel` の代わり）
+3. プロジェクトタイプから推測:
+   - TypeScript/JavaScript → `lint-fix-parallel`
+   - Git リポジトリ → `commit-ja`, `pr-create`
+   - 開発環境（Cloudflare以外） → `local-tunnel`
+4. 汎用的に便利なスキルを提案（`skill-creator` など）
 
 ### 4. ユーザーへの提案
 
@@ -80,11 +85,14 @@ AIが選定したスキルをユーザーに提案します：
 
 【その他の利用可能なスキル】
 - pr-create: Pull Request作成の自動化
-- local-tunnel: ローカルアプリをスマホで確認
+- local-tunnel: ローカルアプリをスマホで確認（汎用）
+- wrangler-tunnel: Cloudflare Workers開発用トンネル（wrangler.toml検出時）
 
 インストールしたいスキルを選択してください（番号またはスキル名）。
 「すべて」で推奨スキル全てをインストールします。
 他のスキルについて詳細を聞きたい場合は、スキル名をお知らせください。
+
+**注意:** Cloudflare Workers プロジェクトの場合、`local-tunnel` の代わりに `wrangler-tunnel` を推奨します。
 ```
 
 ### 5. スキルのインストール
