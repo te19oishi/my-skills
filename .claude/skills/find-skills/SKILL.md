@@ -119,9 +119,70 @@ ls .claude/skills/
 
 期待するスキルディレクトリが存在することを確認。
 
-### 7. find-skills 自体の削除
+### 7. カスタムスキルの提案（オプション）
 
-インストールが成功したら、このスキル自体を削除します：
+インストールした汎用スキルに加えて、このプロジェクト特化のカスタムスキルが有用か判断します。
+
+**判断基準:**
+- プロジェクトの特性（Cloudflare Workers、Next.js、モノレポなど）
+- 繰り返し行われそうなタスク
+- プロジェクト固有のワークフロー
+
+**提案例:**
+
+**Cloudflare Workers プロジェクトの場合:**
+```
+このプロジェクトに特化したカスタムスキルを作成しますか？
+
+【提案】
+- deploy-worker: wranglerでのデプロイとログ確認を自動化
+- test-worker: ローカルテスト→デプロイ→動作確認の一連フロー
+
+カスタムスキルを作成しますか？ (yes/no)
+```
+
+**Next.js プロジェクトの場合:**
+```
+【提案】
+- new-page: Next.jsのページとAPIルートをテンプレートから生成
+- deploy-vercel: ビルド→デプロイ→確認の自動化
+```
+
+**モノレポの場合:**
+```
+【提案】
+- sync-packages: パッケージ間の依存関係を更新
+- test-all: 全パッケージのテスト実行とレポート生成
+```
+
+**一般的なプロジェクト:**
+提案なし（汎用スキルで十分な場合はスキップ）
+
+**提案がある場合の処理:**
+
+1. ユーザーに提案を表示
+2. ユーザーが「yes」と回答 → `/skill-creator` を実行してカスタムスキル作成をガイド
+3. ユーザーが「no」と回答 → スキップして次へ
+
+**skill-creator への橋渡し:**
+```
+では、カスタムスキルを作成しましょう！
+/skill-creator コマンドを実行します...
+
+スキル名: deploy-worker
+説明: Cloudflare Workerのデプロイとログ確認を自動化
+
+このスキルでは以下を実行します：
+1. wrangler deploy
+2. デプロイ結果の確認
+3. wrangler tail でログ監視
+
+作成しますか？
+```
+
+### 8. find-skills 自体の削除
+
+スキルインストール（とオプションのカスタムスキル作成）が完了したら、このスキル自体を削除します：
 
 ```bash
 `!scripts/remove-self.sh <current-project-dir>`
@@ -136,6 +197,7 @@ ls .claude/skills/
 - commit-ja
 - lint-fix-parallel
 - skill-creator
+- deploy-worker (カスタムスキル) ← 作成した場合のみ
 
 find-skillsスキルはもう不要なため、自動的に削除されます。
 よろしいですか？
@@ -143,7 +205,7 @@ find-skillsスキルはもう不要なため、自動的に削除されます。
 
 ユーザーが承認したら削除を実行。
 
-### 8. 完了報告
+### 9. 完了報告
 
 ```
 ✓ インストール完了！
@@ -152,14 +214,24 @@ find-skillsスキルはもう不要なため、自動的に削除されます。
 - /commit-ja: 日本語でConventional Commitsコミット
 - /lint-fix-parallel: TypeScript lint/typecheckの並列修正
 - /skill-creator: 新しいスキルを作成
+- /deploy-worker: Workerデプロイ自動化 (カスタムスキル) ← 作成した場合
 
 find-skillsスキルは削除されました。
 
-プラグインを更新する場合:
+【次のステップ】
+1. 各スキルを試してみてください
+2. カスタムスキルが必要になったら /skill-creator で作成
+3. プロジェクトに応じてスキルをカスタマイズ
+
+【プラグイン更新】
+新しいスキルが追加されたら:
   /plugin update my-skills
 
-新しいスキルを追加したい場合:
-  再度プラグインをインストールして /find-skills を実行してください
+【再インストール】
+新しいプロジェクトで使う場合:
+  /plugin marketplace add te19oishi/my-skills
+  /plugin install my-skills
+  /find-skills
 ```
 
 ## エラーハンドリング
