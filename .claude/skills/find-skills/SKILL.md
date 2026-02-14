@@ -132,13 +132,25 @@ ls .claude/skills/
 
 **Cloudflare Workers プロジェクトの場合:**
 ```
-このプロジェクトに特化したカスタムスキルを作成しますか？
+🎯 Cloudflare プロジェクトを検出しました！
 
-【提案】
-- deploy-worker: wranglerでのデプロイとログ確認を自動化
-- test-worker: ローカルテスト→デプロイ→動作確認の一連フロー
+Cloudflare公式のスキル集をインストールすることを強く推奨します：
 
-カスタムスキルを作成しますか？ (yes/no)
+【Cloudflare公式スキル】
+cloudflare/skills には以下が含まれます：
+- Workers、Pages の開発サポート
+- D1、KV、R2、Durable Objects などストレージ
+- Workers AI、Vectorize、Agents SDK
+- デプロイ、ログ監視、デバッグツール
+- 60以上のCloudflare製品に対応
+
+インストールコマンド：
+  /plugin marketplace add cloudflare/skills
+  /plugin install cloudflare@skills
+
+これをインストールしますか？ (yes/no)
+
+※ 「no」の場合、カスタムスキルを自分で作成できます
 ```
 
 **Next.js プロジェクトの場合:**
@@ -160,24 +172,48 @@ ls .claude/skills/
 
 **提案がある場合の処理:**
 
-1. ユーザーに提案を表示
-2. ユーザーが「yes」と回答 → `/skill-creator` を実行してカスタムスキル作成をガイド
+#### Cloudflare プロジェクトの場合
+
+1. ユーザーに Cloudflare 公式スキルのインストールを提案
+2. ユーザーが「yes」と回答:
+   ```
+   では、Cloudflare公式スキルをインストールします：
+
+   実行するコマンド：
+   1. /plugin marketplace add cloudflare/skills
+   2. /plugin install cloudflare@skills
+
+   これらのコマンドをユーザーに実行してもらうように案内してください。
+
+   ※ find-skillsスキルは自動コマンド実行ができないため、
+   　ユーザー自身でコマンドを実行する必要があります。
+
+   インストール後、Claude Codeを再起動すると利用可能になります。
+   ```
+
+3. ユーザーが「no」と回答:
+   ```
+   了解しました。必要に応じて後でインストールできます。
+
+   自分でカスタムスキルを作成したい場合は /skill-creator を使用してください。
+   ```
+
+#### その他のプロジェクト（Next.js、モノレポなど）の場合
+
+1. ユーザーにカスタムスキル作成を提案
+2. ユーザーが「yes」と回答 → `/skill-creator` の使い方をガイド
 3. ユーザーが「no」と回答 → スキップして次へ
 
-**skill-creator への橋渡し:**
+**skill-creator への橋渡し例:**
 ```
-では、カスタムスキルを作成しましょう！
-/skill-creator コマンドを実行します...
+カスタムスキルを作成する場合は、次のように実行してください：
 
-スキル名: deploy-worker
-説明: Cloudflare Workerのデプロイとログ確認を自動化
+/skill-creator
 
-このスキルでは以下を実行します：
-1. wrangler deploy
-2. デプロイ結果の確認
-3. wrangler tail でログ監視
+スキル名案: deploy-nextjs
+説明案: Next.jsアプリのビルド→デプロイを自動化
 
-作成しますか？
+必要に応じて /skill-creator で対話しながら作成できます。
 ```
 
 ### 8. find-skills 自体の削除
