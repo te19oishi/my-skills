@@ -96,6 +96,25 @@ ngrok経由でローカルアプリを外部公開、スマホで確認。
 /local-tunnel stop
 ```
 
+### cf-auth-test
+Cloudflare Access Service Tokenを使用したAPI認証のテストと管理。
+
+**機能:**
+- Service Token設定の対話型セットアップ
+- APIエンドポイントへの認証テスト
+- 環境変数の安全な管理（.gitignore自動追加）
+- 詳細なエラー診断とトラブルシューティング
+
+**使用方法:**
+```bash
+# セットアップ
+/cf-auth-test setup
+
+# テスト実行
+/cf-auth-test test
+/cf-auth-test test https://api.example.com/endpoint
+```
+
 ### find-skills
 このスキル自体。プロジェクトを分析して必要なスキルを提案・インストール。
 
