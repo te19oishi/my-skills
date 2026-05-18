@@ -1,6 +1,7 @@
 {
   "name": "my-skills",
   "description": "Personal Claude Code skills collection with skill discovery and installation",
-  "version": "1.0.0",
-  "author": "hinata"
+  "version": "1.1.0",
+  "author": "hinata",
+  "skills": "./.claude/skills"
 }

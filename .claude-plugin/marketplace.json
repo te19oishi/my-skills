@@ -1,5 +1,9 @@
 {
   "name": "my-skills-marketplace",
+  "description": "Personal Claude Code skills collection",
+  "metadata": {
+    "description": "Personal Claude Code skills collection"
+  },
   "owner": {
     "name": "te19oishi",
     "url": "https://github.com/te19oishi/my-skills"
@@ -8,8 +12,8 @@
     {
       "name": "my-skills",
       "description": "Personal Claude Code skills collection with skill discovery and installation",
-      "version": "1.0.0",
-      "source": "."
+      "version": "1.1.0",
+      "source": "./"
     }
   ]
 }
