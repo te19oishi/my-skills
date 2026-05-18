@@ -45,10 +45,11 @@ TypeScript lint/typecheckを実行し、エラー/警告を並列修正。
 ```
 
 ### commit-ja
-Conventional Commits形式の日本語コミット（Claude Code署名なし）。
+Conventional Commits形式の日本語コミット（Claude Code署名なし）。変更をファイル単位を基本に適切な粒度へ分割。
 
 **機能:**
 - 変更内容を分析してコミットメッセージ生成
+- ファイル単位を基本にしたコミット分割
 - 日本語で簡潔な説明
 - スコープの自動判定
 
@@ -139,7 +140,9 @@ Cloudflare Access Service Tokenを使用したAPI認証のテストと管理。
 ## 🔄 更新
 
 ```bash
+/plugin marketplace update my-skills-marketplace
 /plugin update my-skills
+/reload-plugins
 ```
 
 プラグインを更新すると、最新のスキルカタログが反映されます。
